@@ -1,0 +1,8 @@
+name: underactuated-finger-kinetostatic-analysis
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.12
+  - pip=26.1.2
