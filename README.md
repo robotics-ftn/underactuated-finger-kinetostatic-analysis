@@ -22,3 +22,9 @@ conda activate underactuated-finger-kinetostatic-analysis
 ```
 pip install -r requirements.txt
 ```
+
+### Usage:
+- To generate data, run:
+```
+python generate_data.py
+```
