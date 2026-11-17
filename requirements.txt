@@ -1,1 +1,7 @@
-numpy==2.5.4
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+mujoco>=3.1.4        # mj_geomDistance
+imageio>=2.31        # finger_torque.py videos
+imageio-ffmpeg>=0.4  # MP4 writing (finger_torque.py, family_gif.py)
+pillow>=10.0         # GIF writing (family_gif.py)

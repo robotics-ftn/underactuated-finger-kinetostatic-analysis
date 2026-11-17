@@ -202,15 +202,15 @@ for i_0 in range(0, q_steps[0, 0] + 1):
                         m_2 = L_2*np.cos(theta[1, 0]) + c_2*np.cos(theta[2, 0] - psi_3)
                         n_2 = L_2*np.sin(theta[1, 0]) + c_2*np.sin(theta[2, 0] - psi_3)
 
-                        alpha_2_1 = np.atan2(n_2, m_2) + np.arccos(x_2 / (2*a_2*np.sqrt(n_2**2 + m_2**2)))
-                        alpha_2_2 = np.atan2(n_2, m_2) - np.arccos(x_2 / (2*a_2*np.sqrt(n_2**2 + m_2**2)))
+                        alpha_2_1 = np.arctan2(n_2, m_2) + np.arccos(x_2 / (2*a_2*np.sqrt(n_2**2 + m_2**2)))
+                        alpha_2_2 = np.arctan2(n_2, m_2) - np.arccos(x_2 / (2*a_2*np.sqrt(n_2**2 + m_2**2)))
 
                         x_1 = L_1**2 + c_1**2 + a_1**2 - b_1**2 + 2*L_1*c_1*np.cos(theta[0, 0] - alpha_2_2 + psi_2)
                         m_1 = L_1*np.cos(theta[0, 0]) + c_1*np.cos(alpha_2_2 - psi_2)
                         n_1 = L_1*np.sin(theta[0, 0]) + c_1*np.sin(alpha_2_2 - psi_2)
 
-                        alpha_1_1 = np.atan2(n_1, m_1) + np.arccos(x_1 / (2*a_1*np.sqrt(n_1**2 + m_1**2)))
-                        alpha_1_2 = np.atan2(n_1, m_1) - np.arccos(x_1 / (2*a_1*np.sqrt(n_1**2 + m_1**2)))
+                        alpha_1_1 = np.arctan2(n_1, m_1) + np.arccos(x_1 / (2*a_1*np.sqrt(n_1**2 + m_1**2)))
+                        alpha_1_2 = np.arctan2(n_1, m_1) - np.arccos(x_1 / (2*a_1*np.sqrt(n_1**2 + m_1**2)))
 
                         alpha = np.array([[alpha_1_2],
                                           [alpha_2_2]])

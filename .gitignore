@@ -221,3 +221,50 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# =====================================================================
+# Project-specific (merged from the HRC simulation project)
+# =====================================================================
+
+# --- Generated media ---
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.eps
+*.svg
+*.pdf
+*.mp4
+*.avi
+*.mov
+
+# --- Data & results ---
+*.csv
+output_data/*
+!output_data/.gitkeep
+data/
+results/
+outputs/
+screenshots/
+
+# --- LaTeX ---
+tex/
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.bbl
+*.blg
+
+# --- MuJoCo dumps ---
+MJDATA.TXT
+MJMODEL.TXT
+MUJOCO_LOG.TXT
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

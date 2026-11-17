@@ -1,0 +1,133 @@
+<mujoco model="underactuated_finger">
+    <compiler angle="degree" coordinate="local"/>
+    <option gravity="0 0 0" iterations="200" solver="Newton" timestep="0.0005"/>
+    <visual>
+        <map force="0.0001"/>
+        <scale forcewidth="0.05" contactwidth="0.2"/>
+    </visual>
+
+    <asset>
+        <mesh name="phalanx_51mm" file="assets/phalanx51mm_no_bumper.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="phalanx_40mm" file="assets/phalanx40mm.stl" scale="0.001 0.001 0.001"/>
+    </asset>
+
+    <default>
+        <default class="rod">
+            <geom type="capsule" contype="0" conaffinity="0" rgba="0.8 0.3 0.3 1"/>
+        </default>
+        <default class="trans_rod">
+            <geom type="capsule" contype="0" conaffinity="0" rgba="0.4 0.4 0.4 1"/>
+        </default>
+        <default class="phalanx">
+            <geom type="mesh" rgba="0.2 0.6 0.8 1"/>
+        </default>
+    </default>
+
+    <worldbody>
+        <light pos="0 0 1" dir="0 0.5 -1" diffuse="0.8 0.8 0.8"/>
+        <geom type="plane"  pos="0 0.5 0.4" size="0.5 0.5 0.1" rgba="1 1 1 1" euler="90 0 0"/>
+
+        <body name="base" pos="0 0 0.15" euler="0 35 0">
+
+            <body name="object1" pos="-0.003 -0.002 0.0255" euler="90 0 0">
+                <geom name="object_geom1" type="cylinder" pos="0 0 0" size="0.001 0.02" density="2700"/>
+            </body>
+
+            <body name="object2" pos="-0.012662 -0.002 0.074962" euler="90 0 0">
+                <geom name="object_geom2" type="cylinder" pos="0 0 0" size="0.001 0.02" density="2700"/>
+            </body>
+
+            <body name="object3" pos="-0.024283  -0.002 0.117245" euler="90 0 0">
+                <geom name="object_geom3" type="cylinder" pos="0 0 0" size="0.001 0.02" density="2700"/>
+            </body>
+            
+            <body name="input_link" pos="0 0 0">
+                <joint name="joint_input" type="hinge" axis="0 -1 0" armature="0.01"/>
+                <geom class="rod" fromto="0 0 0  0.029538 0 -0.005244" size="0.002" density="2700"/>
+
+                <body name="trans_link_1" pos="0.029538 0 -0.005244">
+                    <inertial pos="0 0 0.02" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
+                    <joint name="joint_b1" type="hinge" axis="0 1 0" armature="0.001"/>
+                    <geom class="trans_rod" fromto="0 0 0 -0.020653 0 0.044159" size="0.002" density="2700"/>
+                    <site name="b1_end" pos="-0.020653 0 0.044159" size="0.001"/>
+                </body>
+            </body>
+
+            <body name="proximal" pos="0 0.01 0">
+                <joint name="joint_A" type="hinge" axis="0 1 0" limited="true" range="-75 0" solreflimit="0.002 1" solimplimit="0.98 0.999 0.0005" armature="0.002" />
+                <site name="torque_site_A" pos="0 0 0" size="0.002"/>
+                <geom name = "proximal_geom" class="phalanx" pos="0 0 0" mesh="phalanx_51mm" density="2700"/>
+                <site name="S1" pos="0 -0.01 0.017" size="0.001"/>
+
+                <body name = "triangle" pos="0 -0.01 0.051">
+                    <inertial pos="0 0 0.02" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
+                    <site name="torque_site_B" pos="0 0 0" size="0.002"/>
+                    <joint name="joint_triangle" type="hinge" axis="0 1 0" limited="false" armature="0.001"/>
+                    <geom name = "P2_conn" class="rod" fromto="0 0 0  0.024993 0 0.000578" size="0.002" rgba="0.2 0.6 0.8 1" density="2700"/>
+                    <geom name = "P2'_conn" class="rod" fromto="0 0 0  0.008885 0 -0.012085" size="0.002" rgba="0.2 0.6 0.8 1" density="2700"/>
+                    
+                    <site name="P2_prime" pos="0.008885 0 -0.012085" size="0.001"/>
+                    
+                    <body name="trans_link_2" pos="0.024993 0 0.000578">
+                        <inertial pos="0 0 0.02" mass="0.05" diaginertia="1e-5 1e-5 1e-5"/>
+                        <joint name="joint_b2" type="hinge" axis="0 1 0" armature="0.001"/>
+                        <geom class="trans_rod" fromto="0 0 0 -0.016164 0 0.045727" size="0.002" density="2700"/>
+                        <site name="b2_end" pos="-0.016164 0 0.045727" size="0.001"/>
+                    </body> 
+                    
+                </body>
+                
+                <body name="middle" pos="0 0 0.051">
+                    <joint name="joint_B" type="hinge" axis="0 1 0" limited="true" range="-110 0" solreflimit="0.002 1" solimplimit="0.98 0.999 0.0005" armature="0.002"/>
+                    <geom name="middle_geom" class="phalanx" pos="0 0 0" mesh="phalanx_51mm" density="2700"/>
+                    <site name="S2" pos="0 -0.01 0.017" size="0.001"/>
+
+                    <body name="distal" pos="0 0 0.051">
+                        <joint name="joint_C" type="hinge" axis="0 1 0" limited="true" range="-90 0" solreflimit="0.002 1" solimplimit="0.98 0.999 0.0005" armature="0.002"/>
+                        <site name="torque_site_C" pos="0 0 0" size="0.002"/>
+                        <geom name = "distal_geom" class="phalanx" pos="0 0 0" mesh="phalanx_40mm" density="2700"/>
+                        <geom class="rod" fromto="0 -0.01 0  0.008829 -0.01 -0.004695" size="0.002" rgba="0.2 0.6 0.8 1" density="2700"/>
+                        <site name="P3" pos="0.0088 -0.01 -0.0047" size="0.001"/>
+                    </body>
+
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <tendon>
+        <spatial name="spring_1" stiffness="2480" damping="2" width="0.001" rgba="1 0.6 0 1" springlength="0.0199">
+            <site site="S1"/>
+            <site site="P2_prime"/>
+        </spatial>
+    </tendon>
+
+    <tendon>
+        <spatial name="spring_2" stiffness="1060" damping="0.5" width="0.001" rgba="1 0.6 0 1" springlength="0.0213">
+            <site site="S2"/>
+            <site site="P3"/>
+        </spatial>
+    </tendon> 
+
+    <equality>
+        <connect site1="b1_end" site2="P2_prime" solref="0.005 1" solimp="0.99 0.999 0.0001"/>
+        <connect site1="b2_end" site2="P3" solref="0.005 1" solimp="0.99 0.999 0.0001"/>
+    </equality>
+
+    <contact>
+        <pair geom1="proximal_geom" geom2="object_geom1" solref="0.005 1" solimp="0.98 0.999 0.001"/>
+        <pair geom1="middle_geom" geom2="object_geom2" solref="0.005 1" solimp="0.98 0.999 0.001"/>
+        <pair geom1="distal_geom" geom2="object_geom3" solref="0.005 1" solimp="0.98 0.999 0.001"/>
+    </contact>
+    
+    <actuator>
+        <motor name="motor_input" joint="joint_input" ctrlrange="-100 100"/>
+    </actuator>
+
+    <sensor>
+        <torque name="torque_A" site="torque_site_A"/>
+        <torque name="torque_B" site="torque_site_B"/>
+        <torque name="torque_C" site="torque_site_C"/>
+    </sensor>
+    
+</mujoco>
